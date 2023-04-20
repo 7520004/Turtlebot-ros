@@ -1,0 +1,7 @@
+<launch>
+  <node pkg="teleop_bot" type="key_publisher.py" name="key_publisher">
+  <node pkg="teleop_bot" type="key_to_twist_with_ramps.py" name="key_to_twist_with_ramps">
+    <param name="linear_scale" value="0.7" type="double"/>
+    <param name="angular_scale" value="0.7" type="double"/>
+  </node>
+</launch>

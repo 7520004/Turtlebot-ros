@@ -1,0 +1,27 @@
+
+<launch>
+	<!-- Turtlebot起動 -->
+	<include file="$(find turtlebot_bringup)/launch/minimal.launch"/>
+	
+	<!-- rplidar_s1起動 -->
+	<include file="$(find rplidar_ros)/launch/rplidar_s1.launch"/>
+	
+	<!-- gmapping起動(odom指定) -->
+	<node name="slam_gmapping" pkg="gmapping" type="slam_gmapping">
+		<param name="odom_frame" type="string" value="odom"/>  
+	</node>
+	
+	<!-- rviz_with_robot起動 -->
+	<include file="$(find turtlebot_le2i)/launch/view_robot_rplidar.launch"/>
+	
+	<!-- teleop起動 -->
+	<arg name="mode" default="joy" />
+	
+	<group if="$(eval mode=='joy')">
+		<include file="$(find turtlebot_teleop)/launch/joy_teleop.launch"/>
+	</group>
+	<group if="$(eval mode=='key')">
+		<include file="$(find turtlebot_teleop)/launch/keyboard_teleop.launch"/>
+	</group>
+	
+</launch>
